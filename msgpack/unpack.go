@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"math"
+	"unsafe"
 )
 
 // Type represents the type of value in the MessagePack stream.
@@ -121,7 +122,7 @@ func (d *Decoder) BytesNoCopy() []byte {
 
 // String returns the current String, Binary or Extension value as a string.
 func (d *Decoder) String() string {
-	return string(d.p)
+	return *(*string)(unsafe.Pointer(&d.p))
 }
 
 // Int returns the current Int value.
